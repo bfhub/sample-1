@@ -33,8 +33,15 @@
       [:div.navbar-start
        [nav-link "#/" "Home" :home]]]]))
 
+(defn add [x y]
+  (+ x y))
+
 (defn home-page []
-  [:section.section>div.container>div.content])
+  [:section.section>div.container>div.content]
+  [:div.columns>div.column.is-one-third>div.column
+   [:p "2 + 3 = " (add 2 3)]
+   [:p "6 + 8 = " (add 6 8)]
+   [:p "98 + 17 = " (add 98 17)]])
 
 (def pages
   {:home #'home-page})
