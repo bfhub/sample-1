@@ -63,7 +63,7 @@
                         :body {:total (+ x y)}})}
       :post {:summary "plus with spec body parameters"
              :parameters {:body {:x int?, :y int?}}
-             :responses {200 {:body {:total pos-int?}}}
+             :responses {200 {:body {:total int?}}}
              :handler (fn [{{{:keys [x y]} :body} :parameters}]
                         {:status 200
                          :body {:total (+ x y)}})}}]]

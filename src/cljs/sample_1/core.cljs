@@ -33,15 +33,23 @@
       [:div.navbar-start
        [nav-link "#/" "Home" :home]]]]))
 
-(defn add [x y]
-  (+ x y))
+(def result1 (r/atom 0))
+(def result2 (r/atom 0))
+(def result3 (r/atom 0))
+
+(defn add [x y result]
+  (prn "add function")
+  (POST "/api/math/plus"
+        {:headers {"Accept" "application/transit+json"}
+         :params {:x x :y y}
+         :handler #(reset! result (:total %))}))
 
 (defn home-page []
   [:section.section>div.container>div.content]
   [:div.columns>div.column.is-one-third>div.column
-   [:p "2 + 3 = " (add 2 3)]
-   [:p "6 + 8 = " (add 6 8)]
-   [:p "98 + 17 = " (add 98 17)]])
+   [:p "2 + 3 = " @result1]
+   [:p "6 + 8 = " @result2]
+   [:p "98 + 17 = " @result3]])
 
 (def pages
   {:home #'home-page})
@@ -84,5 +92,10 @@
 (defn init! []
   (ajax/load-interceptors!)
   (fetch-docs!)
+
+  (add 2 3 result1)
+  (add 6 8 result2)
+  (add 98 17 result3)
+
   (hook-browser-navigation!)
   (mount-components))
